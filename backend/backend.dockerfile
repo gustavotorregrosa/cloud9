@@ -58,4 +58,4 @@ EXPOSE 5206
 # ENTRYPOINT ["tail", "-f", "/dev/null"]
 
 RUN chmod +x ./backend.start.sh
-ENTRYPOINT ["./backend.start.sh"]
+ENTRYPOINT ["/app/backend.start.sh"]
