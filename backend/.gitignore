@@ -1,0 +1,66 @@
+# Ignore build output and intermediate files
+bin/
+obj/
+out/
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# Logs
+*.log
+logs/
+
+# Visual Studio specific
+.vscode/
+.vs/
+*.code-workspace
+
+# Rider specific
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Dependency directories
+packages/
+node_modules/
+
+# Dotnet specific
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+
+# Secrets and sensitive files
+appsettings.json
+appsettings.*.json
+secrets.json
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# JetBrains Rider
+.idea/
+.idea_modules/
+*.iws
+*.iml
+*.ipr
+
+# Coverage and test results
+*.coverage
+*.coveragexml
+*.testresults
+TestResults/
+
+# Temporary files
+*.tmp
+*.temp
+*.pidb
+*.svclog
+*.tlog
+*.ide

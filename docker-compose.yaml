@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres_container
+    environment:
+      POSTGRES_USER: ecommerce
+      POSTGRES_PASSWORD: ecommerce
+      POSTGRES_DB: ecommerce
+    ports:
+      - "5432:5432"
+    networks:
+      - ecommerce-net
+
+  redis:
+    image: redis:7
+    container_name: redis_container
+    ports:
+      - "6379:6379"
+    networks:
+      - ecommerce-net
+
+  backend:
+    build:
+      context: .
+      dockerfile: ./backend/backend.dockerfile
+    container_name: backend_container
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8010:5206"
+    networks:
+      - ecommerce-net
+
+networks:
+  ecommerce-net:
