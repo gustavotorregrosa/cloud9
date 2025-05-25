@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 WORKDIR /app
 
 # Copy all files including backend.start.sh
-COPY ./backend.start.sh .
+COPY ./backend/backend.start.sh .
 
 
 # Update and install basic packages
@@ -55,7 +55,7 @@ ENV PATH="$PATH:/root/.dotnet/tools"
 
 EXPOSE 5206
 
-# ENTRYPOINT ["tail", "-f", "/dev/null"]
+ENTRYPOINT ["tail", "-f", "/dev/null"]
 
-RUN chmod +x ./backend.start.sh
-ENTRYPOINT ["/app/backend.start.sh"]
+# RUN chmod +x ./backend.start.sh
+# ENTRYPOINT ["/app/backend.start.sh"]
