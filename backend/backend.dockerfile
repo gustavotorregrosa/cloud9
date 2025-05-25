@@ -5,10 +5,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /app
 
-# Copy all files including backend.start.sh
-COPY ./backend/backend.start.sh .
-
-
 # Update and install basic packages
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -55,7 +51,12 @@ ENV PATH="$PATH:/root/.dotnet/tools"
 
 EXPOSE 5206
 
-ENTRYPOINT ["tail", "-f", "/dev/null"]
+# Copy all files including backend.start.sh
+COPY ./backend/backend.start.sh /
 
-# RUN chmod +x ./backend.start.sh
-# ENTRYPOINT ["/app/backend.start.sh"]
+# ENTRYPOINT ["tail", "-f", "/dev/null"]
+
+RUN chmod +x /backend.start.sh
+ENTRYPOINT ["/backend.start.sh"]
+
+# ENTRYPOINT ["tail", "-f", "/dev/null"]
