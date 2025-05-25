@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 WORKDIR /app
 
 # Copy all files including backend.start.sh
-COPY ./backend/backend.start.sh .
+COPY ./backend.start.sh .
 
 
 # Update and install basic packages
