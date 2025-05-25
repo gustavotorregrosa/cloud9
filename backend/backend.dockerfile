@@ -55,7 +55,7 @@ ENV PATH="$PATH:/root/.dotnet/tools"
 
 EXPOSE 5206
 
-ENTRYPOINT ["tail", "-f", "/dev/null"]
+# ENTRYPOINT ["tail", "-f", "/dev/null"]
 
-# RUN chmod +x ./backend.start.sh
-# ENTRYPOINT ["./backend.start.sh"]
+RUN chmod +x ./backend.start.sh
+ENTRYPOINT ["./backend.start.sh"]
