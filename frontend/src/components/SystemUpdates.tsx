@@ -66,7 +66,13 @@ export const SystemUpdates = () => {
     }
 
     const closeSocket = () => {
-        sockets?.systemUpdates && sockets.systemUpdates.close()
+        try {
+            sockets?.systemUpdates && sockets.systemUpdates.close()
+        } catch (error) {
+            console.error('Error closing SystemUpdates socket', error)
+            console.log({error})
+        }
+        
     }
 
     useEffect(() => {
@@ -75,7 +81,14 @@ export const SystemUpdates = () => {
             return
         }
 
-        initSocket()
+        try {
+            initSocket()
+        } catch (error) {
+            console.error('Error initializing SystemUpdates socket', error)
+            console.log({error})
+        }
+
+       
         return () => closeSocket()
     }, [user])
 
