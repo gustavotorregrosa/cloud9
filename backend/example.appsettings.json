@@ -1,0 +1,22 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost;Database=ecommerce;Username=ecommerce;Password=ecommerce;",
+    "Redis": "localhost:6379"
+  },
+  "Redis": {
+    "InstanceName": "Cloud9Redis",
+    "User": "cloud9",
+    "Password": "cloud9"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "Jwt": {
+    "Key": "bXlTdXBlclNlY3JldEtleUhlcmVBbG9uZ2VyU2VjdXJlS2V5VGhhdFNhdGlzZmllczI1Ng==", 
+    "RefreshKey": "bXlTdXBlclNlY3JldFJlZnJlc2hLZXlUaGF0U2F0aXNmaWVzMjU2"
+  },
+  "AllowedHosts": "*"
+}
