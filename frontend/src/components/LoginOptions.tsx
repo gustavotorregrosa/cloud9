@@ -1,7 +1,10 @@
+import { SocketsContext } from "@/context/SocketsContext";
+import { WebSocketService } from "@/services/websocketService";
 import { IUser } from "@/store/user/user.interface";
 import { login } from "@/store/user/user.slice";
 import { Avatar, CardHeader, Container, IconButton } from "@mui/material"
 import Card from '@mui/material/Card';
+import { useContext } from "react";
 import { useDispatch } from "react-redux";
 
 export const LoginOptions = () => {
@@ -79,6 +82,7 @@ export const LoginOptions = () => {
     ]
 
     const dispatch = useDispatch()
+    const websocketService = useContext(SocketsContext) as WebSocketService
 
     const loginOnAPI = async (user: IUser) => {
         const result = await fetch(process.env.NEXT_PUBLIC_API_URL+'/Authentication/Login', {
@@ -101,6 +105,8 @@ export const LoginOptions = () => {
         // const _user: IUser = await result.json()
         dispatch(login(_user))
         localStorage.setItem('user', JSON.stringify(_user))
+        websocketService.connect()
+
     }
 
     return <Container>

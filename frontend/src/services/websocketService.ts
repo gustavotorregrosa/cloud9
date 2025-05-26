@@ -1,5 +1,11 @@
 import { AppStore } from "@/store";
 
+enum WebSocketTriggers {
+    CATEGORY_UPDATE = 'refresh-categories',
+    PRODUCT_UPDATE = 'refresh-products',
+    
+} 
+
 export class WebSocketService {
 
     private socket: WebSocket | null = null;
@@ -12,7 +18,7 @@ export class WebSocketService {
 
     connect() {
 
-        const { user } = this.appStore.getState().user;
+        const { user } = this.appStore.getState();
 
         if (this.socket) {
             console.warn('WebSocket is already connected');
@@ -37,6 +43,8 @@ export class WebSocketService {
             console.log('WebSocket connection closed');
             this.socket = null; // Reset the socket on close
         };
+
+        this.setListeners()
     }
 
     send(message: string) {
@@ -52,6 +60,28 @@ export class WebSocketService {
             this.socket.close();
             this.socket = null;
         }
+    }
+
+    private setListeners() {
+
+        this.socket && this.socket.addEventListener('message', (event) => {
+
+            const wsTrigger: WebSocketTriggers = event.data as WebSocketTriggers
+
+            switch (wsTrigger) {
+                case WebSocketTriggers.CATEGORY_UPDATE:
+                    window.dispatchEvent(new Event('update-categories'))
+                    break
+                case WebSocketTriggers.PRODUCT_UPDATE:
+                    window.dispatchEvent(new Event('update-products'))
+                    break
+                default:
+                    break
+            }
+
+            console.log('SystemUpdates message', event.data)
+        
+        })
     }
 }
 
