@@ -1,11 +1,5 @@
 import { createContext } from "react";
+import { WebSocketService } from "@/services/websocketService";
 
-export interface ISocketsGroup {
-    // category: Socket
-    // product: Socket
-    // message: Socket,
-    systemUpdates: WebSocket
-}
-
-export const SocketsContext = createContext<ISocketsGroup | null>(null)
+export const SocketsContext = createContext<WebSocketService | null>(null)
 

@@ -27,22 +27,22 @@ export const SystemUpdates = () => {
             console.error('SystemUpdates error', event)
         }
 
-        sockets!.systemUpdates.onopen = () => {
-            console.log('SystemUpdates connected', {sockets})
+        // sockets!.systemUpdates.onopen = () => {
+        //     console.log('SystemUpdates connected', {sockets})
 
-             setInterval(() => {
-                sockets!.systemUpdates.send(JSON.stringify({
-                    type: 'ping',
-                    data: {
-                        user: user.email
-                    }
-                }))
+        //      setInterval(() => {
+        //         sockets!.systemUpdates.send(JSON.stringify({
+        //             type: 'ping',
+        //             data: {
+        //                 user: user.email
+        //             }
+        //         }))
             
 
-            }, 4000)
+        //     }, 4000)
 
 
-        }
+        // }
 
         sockets!.systemUpdates.addEventListener('message', (event) => {
 

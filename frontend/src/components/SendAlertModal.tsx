@@ -1,7 +1,7 @@
 import { SocketsContext } from '@/context/SocketsContext';
 import { Box, Button, Input } from '@mui/material';
 import Modal from '@mui/material/Modal';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 
 interface AlertModalProps {
@@ -20,25 +20,6 @@ export const AlertModal = ({setOpenFn}: AlertModalProps) => {
     }
 
     setOpenFn && setOpenFn(openModal)
-
-    // useEffect(() => {
-    //     sockets && sockets.message.connect()
-    //     const mappedMessageEvent = sockets?.message.on('show-message', message => {
-    //     toast.success(message, {
-    //         toastId: message
-    //     })
-    //     })
-    
-    //       return () => {
-    //             sockets && sockets.message.disconnect()
-    //             mappedMessageEvent?.close()
-    //         }
-    //   }, [])
-    
-    // const sendMessage = () => {
-    //     setOpen(false)
-    //     sockets && sockets.message.emit('send-message', {message})
-    // }
 
     const sendMessage = () => {
         console.log({message})
