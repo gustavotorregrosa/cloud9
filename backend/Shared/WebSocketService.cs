@@ -48,9 +48,7 @@ namespace backend.Shared{
                     else
                     {
                         var message = System.Text.Encoding.UTF8.GetString(buffer, 0, result.Count);
-
                         Console.WriteLine($"Received message: {message} from {webSocket.GetHashCode()}");
-
                         foreach (var socket in _sockets.ToList())
                         {
                             if (socket != webSocket && socket.State == WebSocketState.Open)

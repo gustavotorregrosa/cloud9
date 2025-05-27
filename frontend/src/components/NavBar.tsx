@@ -58,7 +58,10 @@ function ResponsiveAppBar({openSendMessageModal}: AppBarProps) {
   const settings = [
     {
       label: 'Logout',
-      fn: () => dispatch(logout())
+      fn: () => {
+        localStorage.clear()
+        dispatch(logout())
+      }
     }
   ];
 

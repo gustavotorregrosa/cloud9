@@ -44,13 +44,6 @@ export class ConnectionService {
     }
 
     updateUser = async () => {
-        console.log('Updating user')
-        const user = this.store.getState().user
-        console.log({user})
-        const userLocalStorage = localStorage.getItem('user')
-        console.log({userLocalStorage})
-
-
         const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/authentication/refreshtoken', { headers: this.generateHeaders(true) })
         if(response.status == 401){
             const msg = 'Refresh token expired'

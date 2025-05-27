@@ -1,7 +1,7 @@
 import { SocketsContext } from '@/context/SocketsContext';
 import { Box, Button, Input } from '@mui/material';
 import Modal from '@mui/material/Modal';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 interface AlertModalProps {
@@ -9,7 +9,7 @@ interface AlertModalProps {
 }
 
 export const AlertModal = ({setOpenFn}: AlertModalProps) => {
-    const sockets = useContext(SocketsContext)
+    const socketService = useContext(SocketsContext)
 
     const [message, setMessage] = useState<string>()
     const [open, setOpen] =  useState<boolean>(false)
@@ -19,10 +19,33 @@ export const AlertModal = ({setOpenFn}: AlertModalProps) => {
         setOpen(true)
     }
 
+    const listenForMessages = () => {
+        window.addEventListener('pop-up-message', (event) => {
+            const detail = (event as CustomEvent).detail
+            if (detail?.message) {
+                toast(detail.message, {
+                    position: 'top-right',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
+            
+        })
+    }
+
+    useEffect(() => {
+        listenForMessages()
+    }, [])
+
     setOpenFn && setOpenFn(openModal)
 
     const sendMessage = () => {
-        console.log({message})
+        socketService?.send(message || '')
+        setOpen(false)
     }
     
     return <Modal open={open} onClose={() => setOpen(false)}>

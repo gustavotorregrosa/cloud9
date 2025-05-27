@@ -66,6 +66,8 @@ export class WebSocketService {
 
         this.socket && this.socket.addEventListener('message', (event) => {
 
+            console.log('WebSocket message received:', event.data);
+
             const wsTrigger: WebSocketTriggers = event.data as WebSocketTriggers
 
             switch (wsTrigger) {
@@ -76,6 +78,13 @@ export class WebSocketService {
                     window.dispatchEvent(new Event('update-products'))
                     break
                 default:
+                    window.dispatchEvent(new CustomEvent('pop-up-message', 
+                    {
+                        detail: {
+                            message: event.data,
+                            type: 'info'
+                        }
+                    }))
                     break
             }
 
