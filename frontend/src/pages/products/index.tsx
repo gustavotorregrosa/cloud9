@@ -9,6 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditModal from "./editModal";
 import CreateProductModal from "./createModal";
 import DeleteProductModal from "./deleteModal";
+import { useSearchParams } from 'next/navigation'
 
 export interface IProduct {
     id?: string
@@ -24,6 +25,17 @@ const Products = () => {
     const connectionService = useContext(ConnectionServiceContext)
     const [categories, setCategories] = useState<ICategory[]>([])
     const [products, setProducts] = useState<IProduct[]>([])
+
+    const searchParams = useSearchParams()
+    const categoryFilter = searchParams.get('category')
+
+    // console.log({categoryFilter})
+
+    // const queryParams = new URLSearchParams(window.location.search);
+    // const categoryFilter = queryParams.get('category');
+    // if (categoryFilter) {
+    //     setProducts(products.filter(product => product.category.id === categoryFilter));
+    // }
 
     useEffect(() => {
         readCategories()
@@ -42,8 +54,7 @@ const Products = () => {
     }, [])
 
     const readProducts = async () => {
-        const _products = await connectionService?.makeRequest<IProduct[]>('products', 'get')
-        console.log({_products})
+        const _products = (await connectionService?.makeRequest<IProduct[]>('products', 'get'))?.filter(product => product.categoryId === categoryFilter || !categoryFilter)
         _products && setProducts(_products)
     }
 

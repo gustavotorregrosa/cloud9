@@ -58,8 +58,19 @@ namespace backend.Shared.Authentication
                     throw new UnauthorizedAccessException("Authorization header missing or invalid.");
                 }
                 var token = authorizationHeader.Substring("Bearer ".Length).Trim();
+
+                Console.WriteLine($"Received token: {token}");
+                if (string.IsNullOrEmpty(token))
+                {
+                    throw new UnauthorizedAccessException("Token is null or empty.");
+                }
                 // var refreshTokenDto = new RefreshTokenDto { Token = token };
                 var user = await _authenticationService.RefreshToken(token);
+
+                if (user == null)
+                {
+                    throw new UnauthorizedAccessException("Invalid token.");
+                }
                 return Ok(user);
             }
             catch (UnauthorizedAccessException ex)

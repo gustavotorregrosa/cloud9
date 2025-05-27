@@ -9,6 +9,7 @@ import CreateCategoryModal from './createModal';
 import AddIcon from '@mui/icons-material/Add';
 import { useContext, useEffect, useState } from 'react';
 import { ConnectionServiceContext } from '@/context/ConnectionContext';
+import { useRouter } from 'next/router'
 
 export interface ICategory {
     id: string
@@ -63,8 +64,17 @@ const Categories = () => {
         }
     }
 
+    const goToProducts = (category: ICategory) => {
+        // window.location.href = `/products?category=${category.id}`;
+        router.push(`/products?category=${category}`);
+    }
+
+    const router = useRouter()
+
     const columns: GridColDef[] = [
-        {field: 'name', headerName: 'Category', minWidth: 400 },
+        {field: 'name', headerName: 'Category', minWidth: 400, type: 'custom', renderCell: (params) => {
+            return <span className='cursor' onClick={e => goToProducts(params.row.id)}>{params.row.name}</span>
+        }},
         {field: 'buttons', headerName: 'Buttons', minWidth: 400, type: 'actions',
         getActions: (category) => {
             return [
