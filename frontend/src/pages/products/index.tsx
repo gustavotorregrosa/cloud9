@@ -21,7 +21,6 @@ export interface IProduct {
 
 
 const Products = () => {
-
     const connectionService = useContext(ConnectionServiceContext)
     const [categories, setCategories] = useState<ICategory[]>([])
     const [products, setProducts] = useState<IProduct[]>([])

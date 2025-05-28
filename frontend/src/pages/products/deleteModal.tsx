@@ -26,7 +26,6 @@ const deleteProductModal = ({setOpenDeleteModalFn, handleDelete}: IDeleteProduct
         handleDelete(product)
     }
 
-
     return <Modal
                 open={open}
                 onClose={() => setOpen(false)}

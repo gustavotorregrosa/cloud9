@@ -39,6 +39,11 @@ function ResponsiveAppBar({openSendMessageModal}: AppBarProps) {
       name: 'Products',
       page: 'products'
     },
+
+    {
+      name: 'Movimentations',
+      page: 'movimentations'
+    }
     // {
     //   name: 'Alert',
     //   page: 'alerts'
