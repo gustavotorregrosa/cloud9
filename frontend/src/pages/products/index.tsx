@@ -29,14 +29,6 @@ const Products = () => {
     const searchParams = useSearchParams()
     const categoryFilter = searchParams.get('category')
 
-    // console.log({categoryFilter})
-
-    // const queryParams = new URLSearchParams(window.location.search);
-    // const categoryFilter = queryParams.get('category');
-    // if (categoryFilter) {
-    //     setProducts(products.filter(product => product.category.id === categoryFilter));
-    // }
-
     useEffect(() => {
         readCategories()
         readProducts()

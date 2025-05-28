@@ -65,7 +65,6 @@ const Categories = () => {
     }
 
     const goToProducts = (category: ICategory) => {
-        // window.location.href = `/products?category=${category.id}`;
         router.push(`/products?category=${category}`);
     }
 
@@ -73,7 +72,7 @@ const Categories = () => {
 
     const columns: GridColDef[] = [
         {field: 'name', headerName: 'Category', minWidth: 400, type: 'custom', renderCell: (params) => {
-            return <span className='cursor' onClick={e => goToProducts(params.row.id)}>{params.row.name}</span>
+            return <span className='cursor-pointer' onClick={e => goToProducts(params.row.id)}>{params.row.name}</span>
         }},
         {field: 'buttons', headerName: 'Buttons', minWidth: 400, type: 'actions',
         getActions: (category) => {
