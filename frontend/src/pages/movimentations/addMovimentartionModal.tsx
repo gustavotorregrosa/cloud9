@@ -5,33 +5,43 @@ import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import { useEffect, useState } from 'react';
 
 interface IAddMovimentationModalProps {
-    handleCreate: (name: string) => void
-    setOpenCreateModalFn: (fn: () => void) => void
+    handleAdd: (amount: number) => void
+    setOpenAddMovimentatioModalFn: (fn: () => void) => void
 }
 
-const CreateCategoryModal = ({setOpenCreateModalFn, handleCreate}: IAddMovimentationModalProps) => {
+const AddMovimentatioModal = ({setOpenAddMovimentatioModalFn, handleAdd}: IAddMovimentationModalProps) => {
 
-    const [name, setName] = useState<string>('')
+    const [amount, setAmount] = useState<number>(1)
     const [open, setOpen] = useState<boolean>(false)
 
     const openModal = () => {
         setOpen(true)
-        setName('')
+        setAmount(1)
     }
 
     // useEffect(() => {
     //     setOpenCreateModalFn && setOpenCreateModalFn(openModal)
     // }, [])
 
-    setOpenCreateModalFn && setOpenCreateModalFn(openModal)
+    setOpenAddMovimentatioModalFn && setOpenAddMovimentatioModalFn(openModal)
 
-    const _handleCreate = (_name: string) => {
+    const _handleAdd = () => {
         setOpen(false)
-        handleCreate(_name)
+        handleAdd(amount)
     }
 
-    const handleChange = (value: string) => {
-        setName(value)
+    const handleChange = (_amount: string) => {
+        try {
+            const parsedAmount = parseInt(_amount)
+            if (isNaN(parsedAmount)) {
+                setAmount(1)
+                return
+            }
+            setAmount(parsedAmount)
+        }catch (error) {
+            console.error("Error parsing amount:", error);
+            setAmount(1);
+        }
     }
 
     return <Modal
@@ -42,8 +52,8 @@ const CreateCategoryModal = ({setOpenCreateModalFn, handleCreate}: IAddMovimenta
             >
                 <Box sx={style}>
                     <p>Create Category</p>
-                    <Input value={name} onChange={e => handleChange(e.target.value)} />&nbsp;&nbsp;
-                    <Button onClick={() => _handleCreate(name)} variant="outlined" ><SaveAltIcon /></Button>
+                    <Input value={amount} onChange={e => handleChange(e.target.value)} />&nbsp;&nbsp;
+                    <Button onClick={() => _handleAdd()} variant="outlined" ><SaveAltIcon /></Button>
                 </Box>
         </Modal>
 
@@ -61,4 +71,4 @@ const style = {
     p: 4,
   };
 
-export default CreateCategoryModal
+export default AddMovimentatioModal
