@@ -2,25 +2,32 @@ import { Box, Button } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import { Input } from '@mui/material';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+
+export enum IMovimentationType {
+    ADD = 'ADD',
+    WITHDRAW = 'WITHDRAW'
+}
 
 interface IAddMovimentationModalProps {
     handleAdd: (amount: number) => void
-    setOpenAddMovimentatioModalFn: (fn: () => void) => void
+    setOpenAddMovimentatioModalFn: (fn: (_movimentationType: IMovimentationType) => void) => void
 }
 
 const AddMovimentatioModal = ({setOpenAddMovimentatioModalFn, handleAdd}: IAddMovimentationModalProps) => {
 
     const [amount, setAmount] = useState<number>(1)
     const [open, setOpen] = useState<boolean>(false)
+    const [movimentationType, setMovimentationType] = useState<IMovimentationType>(IMovimentationType.ADD)
 
-    const openModal = () => {
+    const openModal = (_movimentationType: IMovimentationType) => {
+        setMovimentationType(_movimentationType)
         setOpen(true)
         setAmount(1)
     }
 
     // useEffect(() => {
-    //     setOpenCreateModalFn && setOpenCreateModalFn(openModal)
+    //     setOpenAddMovimentatioModalFn && setOpenAddMovimentatioModalFn(openModal)
     // }, [])
 
     setOpenAddMovimentatioModalFn && setOpenAddMovimentatioModalFn(openModal)
@@ -51,8 +58,17 @@ const AddMovimentatioModal = ({setOpenAddMovimentatioModalFn, handleAdd}: IAddMo
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <p>Create Category</p>
-                    <Input type='number' value={amount} onChange={e => handleChange(e.target.value)} />&nbsp;&nbsp;
+                    <p>{movimentationType == IMovimentationType.ADD ? 'Add Item' : 'Withdraw Item'}</p>
+                    <Input 
+                        type='number' 
+                        value={amount} 
+                        onChange={e => {
+                            const value = e.target.value;
+                            if (parseInt(value) > 0) {
+                                handleChange(value);
+                            }
+                        }} 
+                    />&nbsp;&nbsp;
                     <Button onClick={() => _handleAdd()} variant="outlined" ><SaveAltIcon /></Button>
                 </Box>
         </Modal>

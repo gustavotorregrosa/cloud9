@@ -5,6 +5,8 @@ import { useContext, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import { ConnectionServiceContext } from "@/context/ConnectionContext"
 import AddIcon from '@mui/icons-material/Add'
+import RemoveIcon from '@mui/icons-material/Remove';
+import AddMovimentatioModal, { IMovimentationType } from "./addMovimentartionModal"
 
 
 const Movimentations = () => {
@@ -26,7 +28,16 @@ const Movimentations = () => {
         setSeries(_series)
     }
 
-    let openAddMovimentationModal = () => {}
+    let openAddMovimentationModal = (_movimentationType: IMovimentationType) => {}
+
+    const addMovimentation = async (amount: number) => {
+        return
+        try {
+            await connectionService?.makeRequest<ISerieItem>('movimentations', 'post', JSON.stringify({amount}))
+        } catch (error) {
+            console.log({error})
+        }
+    }
 
     // const series: ISerieItem[] = [
     //     { xData: new Date(2024, 0, 1), yData: 10 },
@@ -37,8 +48,13 @@ const Movimentations = () => {
     // ]
 
     return <Container>
-        <Button className='float-right' onClick={() => openAddMovimentationModal()} variant="outlined"><AddIcon /></Button>  
+        
+        <Button className='float-right' style={{
+            marginLeft: '10px',
+        }} onClick={() => openAddMovimentationModal(IMovimentationType.ADD)} variant="outlined"><AddIcon /></Button> &nbsp;&nbsp;
+        <Button className='float-right' onClick={() => openAddMovimentationModal(IMovimentationType.WITHDRAW)} variant="outlined"><RemoveIcon /></Button>  &nbsp;&nbsp;
         <MovimentationsChart series={series} />
+        <AddMovimentatioModal setOpenAddMovimentatioModalFn={(fn) => openAddMovimentationModal = fn } handleAdd={addMovimentation} />
     </Container>
 }
 
