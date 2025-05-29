@@ -52,7 +52,7 @@ const AddMovimentatioModal = ({setOpenAddMovimentatioModalFn, handleAdd}: IAddMo
             >
                 <Box sx={style}>
                     <p>Create Category</p>
-                    <Input value={amount} onChange={e => handleChange(e.target.value)} />&nbsp;&nbsp;
+                    <Input type='number' value={amount} onChange={e => handleChange(e.target.value)} />&nbsp;&nbsp;
                     <Button onClick={() => _handleAdd()} variant="outlined" ><SaveAltIcon /></Button>
                 </Box>
         </Modal>

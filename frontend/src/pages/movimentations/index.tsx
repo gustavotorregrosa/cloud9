@@ -28,8 +28,6 @@ const Movimentations = () => {
 
     let openAddMovimentationModal = () => {}
 
-    
-
     // const series: ISerieItem[] = [
     //     { xData: new Date(2024, 0, 1), yData: 10 },
     //     { xData: new Date(2024, 0, 2), yData: 15 },
