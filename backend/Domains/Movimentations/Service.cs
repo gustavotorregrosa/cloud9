@@ -20,12 +20,16 @@ namespace backend.Domains.Movimentations
         {
             var movementations = await _repository.GetByProductIdAsync(productId);
             List<StockPositionDTO> stockPositions = new List<StockPositionDTO>();
+
+            int stockPosition = 0;
             foreach (var movimentation in movementations)
             {
+
+                stockPosition += movimentation.Amount;
                 StockPositionDTO _movimentation = new StockPositionDTO
                 {
-                    AtDate = movimentation.CreatedAt.Date,
-                    Value = movimentation.Amount
+                    AtDate = movimentation.CreatedAt,
+                    Value = stockPosition
                 };
 
                 stockPositions.Add(_movimentation);

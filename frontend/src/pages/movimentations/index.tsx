@@ -20,8 +20,8 @@ const Movimentations = () => {
 
     useEffect(() => {
         readMovimentations()
-        window.addEventListener('refresh-movimentations', readMovimentations)
-        return () => window.removeEventListener('refresh-movimentations', readMovimentations)
+        window.addEventListener('update-movimentations', readMovimentations)
+        return () => window.removeEventListener('update-movimentations', readMovimentations)
 
     }, [productId])
 
@@ -36,9 +36,13 @@ const Movimentations = () => {
         ).map(movimentation => {
             const date = new Date(movimentation.atDate)
             return {
-            atDate: new Date(date.getFullYear(), date.getMonth(), date.getDate()),
-            value: movimentation.value
+                atDate: new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()),
+                value: movimentation.value
             }
+            // return {
+            // atDate: new Date(date.getFullYear(), date.getMonth(), date.getDate()),
+            // value: movimentation.value
+            // }
         })
         console.log({_series})
         

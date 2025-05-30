@@ -3,6 +3,7 @@ import { AppStore } from "@/store";
 enum WebSocketTriggers {
     CATEGORY_UPDATE = 'refresh-categories',
     PRODUCT_UPDATE = 'refresh-products',
+    MOVIMENTATION_UPDATE = 'refresh-movimentations',
     
 } 
 
@@ -76,6 +77,10 @@ export class WebSocketService {
                     break
                 case WebSocketTriggers.PRODUCT_UPDATE:
                     window.dispatchEvent(new Event('update-products'))
+                    break
+
+                case WebSocketTriggers.MOVIMENTATION_UPDATE:
+                    window.dispatchEvent(new Event('update-movimentations'))
                     break
                 default:
                     window.dispatchEvent(new CustomEvent('pop-up-message', 
