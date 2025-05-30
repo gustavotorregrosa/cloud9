@@ -10,7 +10,7 @@ export enum IMovimentationType {
 }
 
 interface IAddMovimentationModalProps {
-    handleAdd: (amount: number) => void
+    handleAdd: (amount: number, _movimentationType: IMovimentationType) => void
     setOpenAddMovimentatioModalFn: (fn: (_movimentationType: IMovimentationType) => void) => void
 }
 
@@ -34,7 +34,9 @@ const AddMovimentatioModal = ({setOpenAddMovimentatioModalFn, handleAdd}: IAddMo
 
     const _handleAdd = () => {
         setOpen(false)
-        handleAdd(amount)
+        handleAdd(amount, movimentationType)
+        setAmount(1)
+        setMovimentationType(IMovimentationType.ADD)
     }
 
     const handleChange = (_amount: string) => {

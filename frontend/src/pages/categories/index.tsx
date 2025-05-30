@@ -64,11 +64,11 @@ const Categories = () => {
         }
     }
 
+    const router = useRouter()
+
     const goToProducts = (category: ICategory) => {
         router.push(`/products?category=${category}`);
     }
-
-    const router = useRouter()
 
     const columns: GridColDef[] = [
         {field: 'name', headerName: 'Category', minWidth: 400, type: 'custom', renderCell: (params) => {

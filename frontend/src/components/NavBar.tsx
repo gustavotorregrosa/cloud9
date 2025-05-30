@@ -40,10 +40,10 @@ function ResponsiveAppBar({openSendMessageModal}: AppBarProps) {
       page: 'products'
     },
 
-    {
-      name: 'Movimentations',
-      page: 'movimentations'
-    }
+    // {
+    //   name: 'Movimentations',
+    //   page: 'movimentations'
+    // }
     // {
     //   name: 'Alert',
     //   page: 'alerts'

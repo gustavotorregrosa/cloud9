@@ -10,6 +10,7 @@ import EditModal from "./editModal";
 import CreateProductModal from "./createModal";
 import DeleteProductModal from "./deleteModal";
 import { useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/router'
 
 export interface IProduct {
     id?: string
@@ -43,6 +44,12 @@ const Products = () => {
         }
 
     }, [])
+    
+    const router = useRouter()
+
+    const goToMovimentations = (product: IProduct) => {
+        router.push(`/movimentations?product=${product.id}`);
+    }
 
     const readProducts = async () => {
         const _products = (await connectionService?.makeRequest<IProduct[]>('products', 'get'))?.filter(product => product.categoryId === categoryFilter || !categoryFilter)
@@ -85,7 +92,9 @@ const Products = () => {
 
     const columns: GridColDef[] = [
         {field: 'categoryName', headerName: 'Category', minWidth: 300},
-        {field: 'name', headerName: 'Product', minWidth: 300},  
+        {field: 'name', headerName: 'Product', minWidth: 300, type: 'custom', renderCell: (params) => {
+            return <span className='cursor-pointer' onClick={e => goToMovimentations(params.row.id)}>{params.row.name}</span>
+        }},  
         {field: 'buttons', headerName: 'Buttons', minWidth: 200, type: 'actions',
         getActions: (product) => {
             return [

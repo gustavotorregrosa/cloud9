@@ -1,7 +1,7 @@
 import { Button, Container } from "@mui/material"
 import MovimentationsChart, { ISerieItem } from "@/components/MovimentationsChart"
 import { IProduct } from "../products"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import { ConnectionServiceContext } from "@/context/ConnectionContext"
 import AddIcon from '@mui/icons-material/Add'
@@ -18,6 +18,13 @@ const Movimentations = () => {
     const [product, setProduct] = useState<IProduct>()
     const [series, setSeries] = useState<ISerieItem[]>([])
 
+    useEffect(() => {
+        readMovimentations()
+        window.addEventListener('update-movimentations', readMovimentations)
+        return () => window.removeEventListener('update-movimentations', readMovimentations)
+
+    }, [productId])
+
     const readMovimentations = async () => {
         if (!productId) return
 
@@ -30,9 +37,10 @@ const Movimentations = () => {
 
     let openAddMovimentationModal = (_movimentationType: IMovimentationType) => {}
 
-    const addMovimentation = async (amount: number) => {
+    const addMovimentation = async (_amount: number, _movimentationType: IMovimentationType) => {
         return
         try {
+            const amount = _movimentationType === IMovimentationType.ADD ? _amount : -_amount
             await connectionService?.makeRequest<ISerieItem>('movimentations', 'post', JSON.stringify({amount}))
         } catch (error) {
             console.log({error})
@@ -48,7 +56,6 @@ const Movimentations = () => {
     // ]
 
     return <Container>
-        
         <Button className='float-right' style={{
             marginLeft: '10px',
         }} onClick={() => openAddMovimentationModal(IMovimentationType.ADD)} variant="outlined"><AddIcon /></Button> &nbsp;&nbsp;
