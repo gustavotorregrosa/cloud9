@@ -1,3 +1,4 @@
+using backend.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,9 +10,11 @@ namespace backend.Domains.Movimentations
     public class MovimentationsController : ControllerBase
     {
         private readonly IMovimentationService _service;
+        private readonly WebSocketService _webSocketService;
 
-        public MovimentationsController(IMovimentationService service)
+        public MovimentationsController(IMovimentationService service, WebSocketService webSocketService)
         {
+            _webSocketService = webSocketService;
             _service = service;
         }
 
@@ -32,9 +35,10 @@ namespace backend.Domains.Movimentations
         }
 
         [HttpGet("product/{productId}")]
-        public async Task<IActionResult> GetByProductId(Guid productId)
+        public async Task<IActionResult> GetByProductId([FromRoute] Guid productId)
         {
-            var result = await _service.GetByProductIdAsync(productId);
+            Console.WriteLine($"Fetching movimentations for product ID: {productId}");
+            var result = await _service.GetStockPositionOverTime(productId);
             return Ok(result);
         }
 
@@ -42,6 +46,7 @@ namespace backend.Domains.Movimentations
         public async Task<IActionResult> Create([FromBody] MovimentationDtoIn dto)
         {
             var result = await _service.AddAsync(dto);
+            _webSocketService.BroadcastMessage("refresh-movimentations");
             return Ok(result);
         }
 
@@ -49,6 +54,7 @@ namespace backend.Domains.Movimentations
         public async Task<IActionResult> Update(Guid id, [FromBody] MovimentationDtoIn dto)
         {
             var result = await _service.UpdateAsync(dto, id);
+            _webSocketService.BroadcastMessage("refresh-movimentations");
             return Ok(result);
         }
 
@@ -56,6 +62,7 @@ namespace backend.Domains.Movimentations
         public async Task<IActionResult> Delete(Guid id)
         {
             var result = await _service.DeleteAsync(id);
+            _webSocketService.BroadcastMessage("refresh-movimentations");
             return Ok(result);
         }
     }

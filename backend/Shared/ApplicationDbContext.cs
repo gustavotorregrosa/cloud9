@@ -1,4 +1,5 @@
 using backend.Domains.Categories;
+using backend.Domains.Movimentations;
 using backend.Domains.Products;
 using backend.Domains.Users;
 using Microsoft.EntityFrameworkCore;
@@ -12,4 +13,6 @@ public class ApplicationDbContext : DbContext
     public DbSet<Category> Categories { get; set; }
 
     public DbSet<Product> Products { get; set; }
+
+    public DbSet<Movimentation> Movimentations { get; set; }
  }

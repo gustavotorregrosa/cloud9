@@ -1,5 +1,6 @@
 using System.Text;
 using backend.Domains.Categories;
+using backend.Domains.Movimentations;
 using backend.Domains.Products;
 using backend.Domains.Users;
 using backend.Shared;
@@ -19,7 +20,9 @@ public static class AppConfiguration
         builder.Services.AddScoped<ICategoryService, CategoryService>();
         builder.Services.AddScoped<IProductRepository, ProductRepository>();
         builder.Services.AddScoped<IProductService, ProductService>();
+        builder.Services.AddScoped<IMovimentationRepository, MovimentationRepository>();
         builder.Services.AddScoped<IAuthenticationService, AuthenticateService>();
+        builder.Services.AddScoped<IMovimentationService, MovimentationService>();
         builder.Services.AddSingleton<WebSocketService>();
     }
 

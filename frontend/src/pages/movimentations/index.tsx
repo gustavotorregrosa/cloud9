@@ -20,8 +20,8 @@ const Movimentations = () => {
 
     useEffect(() => {
         readMovimentations()
-        window.addEventListener('update-movimentations', readMovimentations)
-        return () => window.removeEventListener('update-movimentations', readMovimentations)
+        window.addEventListener('refresh-movimentations', readMovimentations)
+        return () => window.removeEventListener('refresh-movimentations', readMovimentations)
 
     }, [productId])
 
@@ -31,17 +31,26 @@ const Movimentations = () => {
         const _product = await connectionService?.makeRequest<IProduct>(`products/${productId}`, 'get')
         setProduct(_product as IProduct)
 
-        const _series: ISerieItem[] = (await connectionService?.makeRequest<ISerieItem[]>(`movimentations/product/${productId}`, 'get')) || []
+        const _series: ISerieItem[] = (
+            (await connectionService?.makeRequest<ISerieItem[]>(`movimentations/product/${productId}`, 'get')) || []
+        ).map(movimentation => {
+            const date = new Date(movimentation.atDate)
+            return {
+            atDate: new Date(date.getFullYear(), date.getMonth(), date.getDate()),
+            value: movimentation.value
+            }
+        })
+        console.log({_series})
+        
         setSeries(_series)
     }
 
     let openAddMovimentationModal = (_movimentationType: IMovimentationType) => {}
 
     const addMovimentation = async (_amount: number, _movimentationType: IMovimentationType) => {
-        return
         try {
             const amount = _movimentationType === IMovimentationType.ADD ? _amount : -_amount
-            await connectionService?.makeRequest<ISerieItem>('movimentations', 'post', JSON.stringify({amount}))
+            await connectionService?.makeRequest<ISerieItem>('movimentations', 'post', JSON.stringify({amount, productId}))
         } catch (error) {
             console.log({error})
         }

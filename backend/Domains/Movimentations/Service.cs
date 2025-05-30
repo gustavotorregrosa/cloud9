@@ -22,23 +22,17 @@ namespace backend.Domains.Movimentations
             List<StockPositionDTO> stockPositions = new List<StockPositionDTO>();
             foreach (var movimentation in movementations)
             {
+                StockPositionDTO _movimentation = new StockPositionDTO
+                {
+                    AtDate = movimentation.CreatedAt.Date,
+                    Value = movimentation.Amount
+                };
 
+                stockPositions.Add(_movimentation);
 
-                // var stockPosition = stockPositions.FirstOrDefault(sp => sp.Date.Date == movimentation.CreatedAt.Date);
-                // if (stockPosition == null)
-                // {
-                //     stockPosition = new StockPositionDTO
-                //     {
-                //         Date = movimentation.CreatedAt.Date,
-                //         Quantity = movimentation.Amount
-                //     };
-                //     stockPositions.Add(stockPosition);
-                // }
-                // else
-                // {
-                //     stockPosition.Quantity += movimentation.Amount;
-                // }
             }
+
+            return stockPositions.OrderBy(x => x.AtDate);
 
         }
 

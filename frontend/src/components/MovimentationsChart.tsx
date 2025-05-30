@@ -2,8 +2,8 @@ import * as React from 'react';
 import { LineChart } from '@mui/x-charts/LineChart';
 
 export interface ISerieItem {
-  yData: number,
-  xData: Date,
+  value: number,
+  atDate: Date,
 }
 
 interface IMovimentationsChartProps {
@@ -14,16 +14,16 @@ const MovimentationsChart = ({series}: IMovimentationsChartProps) => {
     return <LineChart
       xAxis={[
         { 
-          data: series.map(item => item.xData),
+          data: series.map(item => item.atDate),
           scaleType: 'time',
-          valueFormatter: (value) => {
-            return value.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+          valueFormatter: (atDate) => {
+            return new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
           }
         }
       ]}
       series={[
         {
-          data: series.map(item => item.yData),
+          data: series.map(item => item.value),
         },
       ]}
       height={300}
