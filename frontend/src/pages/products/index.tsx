@@ -93,7 +93,7 @@ const Products = () => {
     const columns: GridColDef[] = [
         {field: 'categoryName', headerName: 'Category', minWidth: 300},
         {field: 'name', headerName: 'Product', minWidth: 300, type: 'custom', renderCell: (params) => {
-            return <span className='cursor-pointer' onClick={e => goToMovimentations(params.row.id)}>{params.row.name}</span>
+            return <span className='cursor-pointer' onClick={e => goToMovimentations(params.row as IProduct)}>{params.row.name}</span>
         }},  
         {field: 'buttons', headerName: 'Buttons', minWidth: 200, type: 'actions',
         getActions: (product) => {

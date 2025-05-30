@@ -11,6 +11,37 @@ namespace backend.Domains.Movimentations
             _repository = repository;
         }
 
+        public async Task<IEnumerable<MovimentationDtoOut>> GetByProductIdAsync(Guid productId)
+        {
+            return (await _repository.GetByProductIdAsync(productId)).Select(MapToDto);
+        }
+
+        public async Task<IEnumerable<StockPositionDTO>> GetStockPositionOverTime(Guid productId)
+        {
+            var movementations = await _repository.GetByProductIdAsync(productId);
+            List<StockPositionDTO> stockPositions = new List<StockPositionDTO>();
+            foreach (var movimentation in movementations)
+            {
+
+
+                // var stockPosition = stockPositions.FirstOrDefault(sp => sp.Date.Date == movimentation.CreatedAt.Date);
+                // if (stockPosition == null)
+                // {
+                //     stockPosition = new StockPositionDTO
+                //     {
+                //         Date = movimentation.CreatedAt.Date,
+                //         Quantity = movimentation.Amount
+                //     };
+                //     stockPositions.Add(stockPosition);
+                // }
+                // else
+                // {
+                //     stockPosition.Quantity += movimentation.Amount;
+                // }
+            }
+
+        }
+
         public async Task<IEnumerable<MovimentationDtoOut>> GetAllAsync()
         {
             return (await _repository.GetAllAsync()).Select(MapToDto);

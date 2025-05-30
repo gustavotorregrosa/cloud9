@@ -12,6 +12,13 @@ namespace backend.Domains.Movimentations
             _context = context;
         }
 
+        public async Task<IEnumerable<Movimentation>> GetByProductIdAsync(Guid productId)
+        {
+            return await _context.Set<Movimentation>()
+                .Where(m => m.ProductId == productId)
+                .ToListAsync();
+        }
+
         public async Task<IEnumerable<Movimentation>> GetAllAsync()
         {
             return await _context.Set<Movimentation>().ToListAsync();

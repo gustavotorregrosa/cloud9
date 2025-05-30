@@ -31,6 +31,13 @@ namespace backend.Domains.Movimentations
             return Ok(result);
         }
 
+        [HttpGet("product/{productId}")]
+        public async Task<IActionResult> GetByProductId(Guid productId)
+        {
+            var result = await _service.GetByProductIdAsync(productId);
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] MovimentationDtoIn dto)
         {
