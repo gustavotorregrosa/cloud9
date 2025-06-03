@@ -13,6 +13,7 @@ services:
     networks:
       - ecommerce-net
 
+
 networks:
   ecommerce-net:
     external: true
