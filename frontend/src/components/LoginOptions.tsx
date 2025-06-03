@@ -15,8 +15,8 @@ export const LoginOptions = () => {
             email: 'dina@gmail.com',
             image: 'dina.png',
             name: 'Dina Fox',
-            access_refresh_token: '123',
-            access_token: '123',
+            access_refresh_token: ' ',
+            access_token: ' ',
             password: 'cloud9'
         },
 
@@ -25,8 +25,8 @@ export const LoginOptions = () => {
             email: 'amy@gmail.com',
             image: 'amy.png',
             name: 'Amy Sosa',
-            access_refresh_token: '123',
-            access_token: '123',
+            access_refresh_token: ' ',
+            access_token: ' ',
             password: 'cloud9'
         },                                      
 
@@ -35,8 +35,8 @@ export const LoginOptions = () => {
             email: 'jonah@gmail.com',
             image: 'jonah.png',
             name: 'Jonah Simms',
-            access_refresh_token: '123',
-            access_token: '123',
+            access_refresh_token: ' ',
+            access_token: ' ',
             password: 'cloud9'
         },
 
@@ -45,8 +45,8 @@ export const LoginOptions = () => {
             email: 'cheyenne@gmail.com',
             image: 'cheyenne.png',
             name: 'Cheyenne Lee',
-            access_refresh_token: '123',
-            access_token: '123',
+            access_refresh_token: ' ',
+            access_token: ' ',
             password: 'cloud9'
         },
 
@@ -55,8 +55,8 @@ export const LoginOptions = () => {
             email: 'glenn@gmail.com',
             image: 'glenn.png',
             name: 'Glenn Sturgis',
-            access_refresh_token: '123',
-            access_token: '123',
+            access_refresh_token: ' ',
+            access_token: ' ',
             password: 'cloud9'
         },
 
@@ -65,8 +65,8 @@ export const LoginOptions = () => {
             email: 'garret@gmail.com',
             image: 'garret.png',
             name: 'Garret McNeill',
-            access_refresh_token: '123',
-            access_token: '123',
+            access_refresh_token: ' ',
+            access_token: ' ',
             password: 'cloud9'
         },
 
@@ -75,8 +75,8 @@ export const LoginOptions = () => {
             email: 'mateo@gmail.com',
             image: 'mateo.png',
             name: 'Mateo Liwanag',
-            access_refresh_token: '123',
-            access_token: '123',
+            access_refresh_token: ' ',
+            access_token: ' ',
             password: 'cloud9'
         },
     ]
