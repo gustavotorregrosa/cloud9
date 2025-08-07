@@ -15,7 +15,6 @@ namespace backend.Shared.Authentication
             _authenticationService = authenticationService;
         }
 
-        // POST: api/Authentication/Login
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
@@ -30,7 +29,6 @@ namespace backend.Shared.Authentication
             }
         }
 
-        // POST: api/Authentication/Register
         [HttpPost("Register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
         {
@@ -45,7 +43,6 @@ namespace backend.Shared.Authentication
             }
         }
 
-        // POST: api/Authentication/RefreshToken
         [HttpGet("RefreshToken")]
         public async Task<IActionResult> RefreshToken()
         {
@@ -79,7 +76,6 @@ namespace backend.Shared.Authentication
             }
         }
 
-        // POST: api/Authentication/ValidateToken
         [HttpPost("ValidateToken")]
         public async Task<IActionResult> ValidateToken([FromBody] TokenDto tokenDto)
         {

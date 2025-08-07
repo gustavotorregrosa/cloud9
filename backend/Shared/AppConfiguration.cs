@@ -125,8 +125,6 @@ public static class AppConfiguration
         app.Use(async (context, next) =>
         {
             
-            Console.WriteLine("WebSocket Middleware");
-
             if (context.Request.Path == "/ws" && context.WebSockets.IsWebSocketRequest)
             {
                 var origin = context.Request.Headers["Origin"];

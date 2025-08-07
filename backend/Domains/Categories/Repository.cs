@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
-using System.Threading.Tasks;
-using backend.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 
@@ -24,8 +19,10 @@ namespace backend.Domains.Categories
         public async Task<IEnumerable<Category>> GetAllAsync()
         {
             var cachedCategories = await _cache.GetStringAsync("categories");
+            
             if (string.IsNullOrEmpty(cachedCategories))
             {
+
                 var categories = await _context.Set<Category>()
                     .OrderBy(c => c.CreatedAt)
                     .ToListAsync();

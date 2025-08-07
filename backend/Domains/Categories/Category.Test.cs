@@ -1,61 +1,29 @@
 using Xunit;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.InMemory;
 using backend.Domains.Categories;
-
+using backend.Shared;
 
 public class CategoryTests
 {
 
-    private DbContextOptions<ApplicationDbContext> CreateTestOptions()
-    {
-        return new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseInMemoryDatabase(databaseName: "TestDb")
-            .Options;
-    }
-
-    private ApplicationDbContext CreateContext()
-    {
-        var options = CreateTestOptions();
-        var context = new ApplicationDbContext(options);
-        context.Database.EnsureCreated();
-        return context;
-    }
-
-    public void ShouldAddCategoryToDatabase()
+    [Fact]
+    public async Task ShouldAddCategoryToDatabase()
     {
 
-
-        using var context = CreateContext();
-
-        // Set up a distributed cache (in-memory for testing)
-        var cacheOptions = new Microsoft.Extensions.Options.OptionsWrapper<Microsoft.Extensions.Caching.Memory.MemoryDistributedCacheOptions>(
-            new Microsoft.Extensions.Caching.Memory.MemoryDistributedCacheOptions());
-        var distributedCache = new Microsoft.Extensions.Caching.Memory.MemoryDistributedCache(cacheOptions);
-
+        var context = TestObjectsFactory.CreateContext();
+        var distributedCache = TestObjectsFactory.CreateCache();
         var repository = new CategoryRepository(context, distributedCache);
-
         var service = new CategoryService(repository);
 
-        // var config = context.AppConfigs.FirstOrDefault();
-        // if (config == null)
-        // {
-        //     config = new AppConfig();
-        // }
+        var _listaCategorias = await service.GetAllAsync();
+        var count = _listaCategorias.Count();
+        Assert.Equal(expected: 0, actual: count);
+        
+        service.AddAsync(new Domains.Categories.CategoryDtoIn { Name = "Test Category" }).Wait();
 
+        _listaCategorias = await service.GetAllAsync();
+        count = _listaCategorias.Count();
+        Assert.Equal(expected: 1, actual: count);
 
-        // // Arrange
-        // using var context = CreateContext();
-        // var category = new CategoryDtoIn { Name = "Test Category" };
-
-        // // Act
-        // context.Categories.Add(new Category { Name = category.Name });
-        // await context.SaveChangesAsync();
-
-        // // Assert
-        // var addedCategory = await context.Categories.FirstOrDefaultAsync(c => c.Name == category.Name);
-        // Assert.NotNull(addedCategory);
-        // Assert.Equal(category.Name, addedCategory.Name);
     }
 
 }
