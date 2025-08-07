@@ -5,6 +5,8 @@ using backend.Shared;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 public class ProductTests
 {
@@ -14,7 +16,6 @@ public class ProductTests
         var context = TestObjectsFactory.CreateContext();
         var distributedCache = TestObjectsFactory.CreateCache();
 
-        // Create and add a category first, since Product requires a CategoryId
         var categoryRepository = new CategoryRepository(context, distributedCache);
         var categoryService = new CategoryService(categoryRepository);
         var category = await categoryService.AddAsync(new Domains.Categories.CategoryDtoIn { Name = "Test Category" });

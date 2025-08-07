@@ -24,7 +24,6 @@ namespace backend.Domains.Products
 
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
-
         [Required]
         public DateTime CreatedAt { get; set; }
 

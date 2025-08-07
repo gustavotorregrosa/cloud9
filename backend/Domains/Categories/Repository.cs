@@ -18,6 +18,7 @@ namespace backend.Domains.Categories
 
         public async Task<IEnumerable<Category>> GetAllAsync()
         {
+
             var cachedCategories = await _cache.GetStringAsync("categories");
             
             if (string.IsNullOrEmpty(cachedCategories))
@@ -26,7 +27,16 @@ namespace backend.Domains.Categories
                 var categories = await _context.Set<Category>()
                     .OrderBy(c => c.CreatedAt)
                     .ToListAsync();
-                _cache.SetString("categories", JsonSerializer.Serialize(categories));
+
+                List<Category> _categoriesSerialized = categories.Select(c => new Category
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    CreatedAt = c.CreatedAt,
+                    UpdatedAt = c.UpdatedAt
+                }).ToList();
+
+                _cache.SetString("categories", JsonSerializer.Serialize(_categoriesSerialized));
             }
             return JsonSerializer.Deserialize<IEnumerable<Category>>(_cache.GetString("categories"));
         }
