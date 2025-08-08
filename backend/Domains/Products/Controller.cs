@@ -7,7 +7,7 @@ namespace backend.Domains.Products
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
+    // [Authorize]
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -17,6 +17,27 @@ namespace backend.Domains.Products
         {
             _productService = productService;
             _webSocketService = webSocketService;
+        }
+
+        [HttpPost("product-list")]
+        public async Task<IActionResult> SendProductList([FromBody] SendProductDtoIn body)
+        {
+            if (body == null || body.Email == null)
+            {
+            return BadRequest(new { Message = "Email is required." });
+            }
+
+            string email = body.Email;
+            try
+            {
+                await _productService.SendEmailNotificationAsync(email);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = $"An error occurred: {ex.Message}" });
+            }
+            // Example response
+            return Ok(new { Message = $"Received email: {email}" });
         }
 
         [HttpGet]
