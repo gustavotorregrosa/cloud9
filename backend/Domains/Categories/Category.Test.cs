@@ -8,7 +8,6 @@ public class CategoryTests
     [Fact]
     public async Task ShouldAddCategoryToDatabase()
     {
-
         var context = TestObjectsFactory.CreateContext();
         var distributedCache = TestObjectsFactory.CreateCache();
         var repository = new CategoryRepository(context, distributedCache);

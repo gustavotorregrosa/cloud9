@@ -23,6 +23,7 @@ public static class AppConfiguration
         builder.Services.AddScoped<IMovimentationRepository, MovimentationRepository>();
         builder.Services.AddScoped<IAuthenticationService, AuthenticateService>();
         builder.Services.AddScoped<IMovimentationService, MovimentationService>();
+        builder.Services.AddSingleton<QueueService>();
         builder.Services.AddSingleton<WebSocketService>();
     }
 

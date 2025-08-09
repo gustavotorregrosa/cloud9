@@ -8,17 +8,17 @@ namespace backend.Domains.Products;
 class ProductService : IProductService
 {
     private readonly IProductRepository _productRepository;
-    private readonly KafkaService? _kafkaService;
+    private readonly QueueService? _queueService;
 
     public ProductService(IProductRepository productRepository)
     {
         _productRepository = productRepository;
     }
 
-    public ProductService(IProductRepository productRepository, KafkaService kafkaService)
+    public ProductService(IProductRepository productRepository, QueueService queueService)
     {
         _productRepository = productRepository;
-        _kafkaService = kafkaService;
+        _queueService = queueService;
     }
 
     public async Task<IEnumerable<ProductDtoOut>> GetAllAsync()
@@ -42,16 +42,16 @@ class ProductService : IProductService
     {
         List<ProductDtoOut> products = (await _productRepository.GetAllAsync()).Select(product => MapToDto(product)).ToList();
 
-        SendProductDtoKafka sendProductDtoKafka = new SendProductDtoKafka
+        SendProductDtoQueue sendProductDtoQueue = new SendProductDtoQueue
         {
             Email = email,
             Products = products
         };
 
-        _kafkaService?.SendProductMessageAsync(JsonSerializer.Serialize(sendProductDtoKafka));
+        _queueService?.SendMessage(JsonSerializer.Serialize(sendProductDtoQueue));
 
         Console.WriteLine($"Email notification sent to {email} with {products.Count} products.");
-        Console.WriteLine($"_kafkaService: {_kafkaService != null}");
+        Console.WriteLine($"_queueService: {_queueService != null}");
     }
 
     public async Task<ProductDtoOut> AddAsync(ProductDtoIn productDto)
