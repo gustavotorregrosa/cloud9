@@ -9,18 +9,20 @@ import com.rabbitmq.client.DeliverCallback;
 public class QueueListenerService {
 
     private EmailService emailService;
+    private AppConfig appConfig;
 
-    public QueueListenerService() {
-        this.emailService = new EmailService();
+    public QueueListenerService(EmailService emailService, AppConfig appConfig) {
+        this.emailService = emailService;
+        this.appConfig = appConfig;
     }
 
     public void listenToQueue() {
-        String host = "localhost";
-        String username = "gustavo";
-        String password = "gustavo01";
-        int port = 5672;
-        String queueName = "cloud9_send_product_queue";
-        String virtualHost = "/";
+        String host = appConfig.getProperty("rabbitmq.host");
+        String username = appConfig.getProperty("rabbitmq.username");
+        String password = appConfig.getProperty("rabbitmq.password");
+        int port = Integer.parseInt(appConfig.getProperty("rabbitmq.port"));
+        String queueName = appConfig.getProperty("rabbitmq.queueName");
+        String virtualHost = appConfig.getProperty("rabbitmq.virtualHost");
 
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost(host);
@@ -118,7 +120,6 @@ public class QueueListenerService {
 
             channel.basicConsume(queueName, true, deliverCallback, consumerTag -> { });
 
-            // Keep the thread alive to listen for messages
             while (true) {
                 Thread.sleep(1000);
             }

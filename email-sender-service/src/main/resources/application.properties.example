@@ -1,0 +1,14 @@
+email.username = ""
+email.app.password = ""
+
+rabbitmq.host=localhost
+rabbitmq.username=
+rabbitmq.password=
+rabbitmq.port=
+rabbitmq.queueName=
+rabbitmq.virtualHost=/
+
+mail.smtp.auth=true
+mail.smtp.starttls.enable=true
+mail.smtp.host=smtp.gmail.com
+mail.smtp.port=587

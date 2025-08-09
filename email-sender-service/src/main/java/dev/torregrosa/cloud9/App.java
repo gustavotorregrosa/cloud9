@@ -1,17 +1,14 @@
 package dev.torregrosa.cloud9;
 
 public class App {
-
+    
     public static void main(String[] args) {
 
         AppConfig config = new AppConfig();
-        String email = config.getProperty("email.username");
-        String password = config.getProperty("email.app.password");
+        EmailService emailService = new EmailService(config);
+        QueueListenerService queueListenerService = new QueueListenerService(emailService, config);
 
-        System.out.println("Email: " + email);
-        System.out.println("Password: " + password);
-
-        // QueueListenerService queueListenerService = new QueueListenerService();
-        // queueListenerService.listenToQueue();
+        // Start the queue listener in a separate thread
+        new Thread(queueListenerService::listenToQueue).start();
     }
 }
