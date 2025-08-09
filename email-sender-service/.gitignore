@@ -1,0 +1,5 @@
+# Ignore Maven/Java build output
+target/
+
+# Ignore sensitive configuration
+src/main/resources/application.properties
