@@ -36,13 +36,12 @@ RUN apt-get update && \
 RUN wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
     dpkg -i packages-microsoft-prod.deb && \
     rm packages-microsoft-prod.deb
-
-# Install .NET 8 SDK and runtime
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        dotnet-sdk-8.0 \
-        aspnetcore-runtime-8.0 && \
-    rm -rf /var/lib/apt/lists/*
+    # Install .NET 9 SDK and runtime
+    RUN apt-get update && \
+        apt-get install -y --no-install-recommends \
+            dotnet-sdk-9.0 \
+            aspnetcore-runtime-9.0 && \
+        rm -rf /var/lib/apt/lists/*
 
 # Install dotnet-ef tool globally
 RUN dotnet tool install --global dotnet-ef
