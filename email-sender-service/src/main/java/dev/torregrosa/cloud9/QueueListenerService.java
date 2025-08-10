@@ -8,10 +8,10 @@ import com.rabbitmq.client.DeliverCallback;
 
 public class QueueListenerService {
 
-    private EmailService emailService;
+    private EmailCustomService emailService;
     private AppConfig appConfig;
 
-    public QueueListenerService(EmailService emailService, AppConfig appConfig) {
+    public QueueListenerService(EmailCustomService emailService, AppConfig appConfig) {
         this.emailService = emailService;
         this.appConfig = appConfig;
     }

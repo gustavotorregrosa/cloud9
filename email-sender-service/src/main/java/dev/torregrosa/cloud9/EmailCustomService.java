@@ -11,11 +11,11 @@ import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 
-public class EmailService {
+public class EmailCustomService {
     
     private AppConfig config;
 
-    public EmailService(AppConfig config) {
+    public EmailCustomService(AppConfig config) {
         this.config = config;
     }
 
