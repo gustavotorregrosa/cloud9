@@ -7,7 +7,7 @@ namespace backend.Domains.Products
 {
     [ApiController]
     [Route("api/[controller]")]
-    // [Authorize]
+    [Authorize]
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -19,6 +19,7 @@ namespace backend.Domains.Products
             _webSocketService = webSocketService;
         }
 
+        [AllowAnonymous]
         [HttpPost("product-list")]
         public async Task<IActionResult> SendProductList([FromBody] SendProductDtoIn body)
         {

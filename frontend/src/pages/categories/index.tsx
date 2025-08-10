@@ -21,8 +21,15 @@ const Categories = () => {
     const connectionService = useContext(ConnectionServiceContext)
     const [categories, setCategories] = useState<ICategory[]>()
     const readCategories = async () => {
-        const _categories = await connectionService?.makeRequest<ICategory[]>('categories', 'get')
-        _categories && setCategories(_categories)
+
+        try {
+            const _categories = await connectionService?.makeRequest<ICategory[]>('categories', 'get')
+            _categories && setCategories(_categories)
+        } catch (error) {
+            console.log('Error reading categories:', error)
+        }
+
+        
     }
 
     useEffect(() => {

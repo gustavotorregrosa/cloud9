@@ -1,11 +1,11 @@
-email.username = ""
-email.app.password = ""
+email.username=gustavo.torregrosa@gmail.com
+email.app.password=
 
-rabbitmq.host=localhost
-rabbitmq.username=
-rabbitmq.password=
-rabbitmq.port=
-rabbitmq.queueName=
+rabbitmq.host=rabbitmq
+rabbitmq.username=gustavo
+rabbitmq.password=gustavo01
+rabbitmq.port=5672
+rabbitmq.queueName=cloud9_send_product_queue
 rabbitmq.virtualHost=/
 
 mail.smtp.auth=true

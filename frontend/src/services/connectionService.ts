@@ -34,13 +34,20 @@ export class ConnectionService {
     }
 
     makeRequest = async <T>(endpoint: string, method: 'get' | 'post' | 'put' | 'patch' | 'delete', body?: string) => {
-        let response = await this.makeSingleRequest(endpoint, method, body)
-        if(response.status == 401){
-            await this.updateUser()
-            response = await this.makeSingleRequest(endpoint, method, body)
+
+        try {
+            let response = await this.makeSingleRequest(endpoint, method, body)
+            if(response.status == 401){
+                await this.updateUser()
+                response = await this.makeSingleRequest(endpoint, method, body)
+            }
+            
+            return await response.json() as T
+        } catch (error) {
+            console.log('Error making request:', error)
         }
+
         
-        return await response.json() as T
     }
 
     updateUser = async () => {

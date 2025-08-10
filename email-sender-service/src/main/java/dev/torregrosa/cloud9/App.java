@@ -8,7 +8,7 @@ public class App {
         EmailService emailService = new EmailService(config);
         QueueListenerService queueListenerService = new QueueListenerService(emailService, config);
 
-        // Start the queue listener in a separate thread
-        new Thread(queueListenerService::listenToQueue).start();
+        queueListenerService.listenToQueue();
+
     }
 }
