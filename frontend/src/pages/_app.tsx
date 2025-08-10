@@ -15,6 +15,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import { SendProductsModal } from "@/components/SendProductsModal";
 // import { SystemUpdates } from "@/components/SystemUpdates";
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -31,6 +32,8 @@ export default function App({ Component, pageProps }: AppProps) {
 
   let openSendMessageModal: () => void
 
+  let openSendEmailModal: () => void
+
   const websocketService = useRef<WebSocketService>()
   if (!websocketService.current) {
     websocketService.current = new WebSocketService(storeRef.current)
@@ -40,9 +43,10 @@ export default function App({ Component, pageProps }: AppProps) {
     <Provider store={storeRef.current}>
       <SocketsContext.Provider value={websocketService.current}>
         <ConnectionServiceContext.Provider value={connectionServiceRef.current}>
-          <div className="mb-10"><ResponsiveAppBar openSendMessageModal={() => openSendMessageModal()} /></div>
+          <div className="mb-10"><ResponsiveAppBar openSendEmailModal={() => openSendEmailModal()} openSendMessageModal={() => openSendMessageModal()} /></div>
           <Component {...pageProps} />
           <ToastContainer />
+          <SendProductsModal setOpenFn={fn => openSendEmailModal = fn} />
           <AlertModal setOpenFn={fn => openSendMessageModal = fn} />
           {/* <SystemUpdates /> */}
         </ConnectionServiceContext.Provider>

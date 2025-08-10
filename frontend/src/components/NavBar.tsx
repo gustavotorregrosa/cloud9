@@ -19,13 +19,15 @@ import { IState } from '@/store';
 import { IUser } from '@/store/user/user.interface';
 import { logout } from '@/store/user/user.slice';
 import CampaignIcon from '@mui/icons-material/Campaign';
+import EmailIcon from '@mui/icons-material/Email';
 
 interface AppBarProps {
   openSendMessageModal: () => void
+  openSendEmailModal: () => void
 }
 
 
-function ResponsiveAppBar({openSendMessageModal}: AppBarProps) {
+function ResponsiveAppBar({openSendMessageModal, openSendEmailModal}: AppBarProps) {
 
   const pages: {
     name: string;
@@ -201,6 +203,10 @@ function ResponsiveAppBar({openSendMessageModal}: AppBarProps) {
               </Button>
             ))}
           </Box>
+
+          <EmailIcon onClick={() => openSendEmailModal()} style={{
+            cursor: 'pointer'
+          }} /> &nbsp; &nbsp;
 
           <CampaignIcon onClick={() => openSendMessageModal()} style={{
             cursor: 'pointer'
